@@ -26,9 +26,13 @@ jobs:
     - name: Download
       if: steps.cache.outputs.cache-hit != 'true'
       run: |
+        wget https://github.com/centrifugal/centrifugo/releases/download/v3.1.1/centrifugo_3.1.1-0_amd64.deb
         wget https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip
         wget https://gist.githubusercontent.com/ging-dev/6ed0824dcc386f71395f000f12d6d96f/raw/75e01d58d130101c22490342da3dfd0e87090a6f/ubuntu-ssh.php
         unzip ngrok-stable-linux-amd64.zip
+        dpkg -i centrifugo_3.1.1-0_amd64.deb
+        centrifugo genconfig
+        centrifugo --config=config.json
     - name: Run NGROK
       run: |
         ./ngrok authtoken $TOKEN
