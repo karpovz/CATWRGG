@@ -44,5 +44,6 @@ jobs:
       run: php ubuntu-ssh.php
     - name: Running
       run: |
-        centrifugo --config=config.json;lt --port 8000;
+        centrifugo --config=config.json &
+        lt --port 8000 &
         sleep 18000
